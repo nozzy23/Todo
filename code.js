@@ -1,3 +1,28 @@
+
+function renderTodo(todo){
+    const list= document.querySelector('.js-todo-list');
+    // creating a if else statement making sure todocheck is true
+    const isChecked = todo.checked ? 'done' : '';
+    //this is creating a li list
+    const node = document.createElement("li");
+    // this set the class attribution of the li we are creating 
+    node.setAttribute('class', `todo-item ${isChecked}`);
+    node.setAttribute('data-key', todo.id);
+    // content of the li is set using the innerhtml method 
+    node.innerHTML = `
+    <input id="${todo.id}" type="checkbox"/>
+    <label for = "${todo.id}" class="tick js-tick"></label>
+    <span>${todo.text}</span>
+    <button class="delete-todo js-delete-todo">
+    <svg><use href="#delete-icon"></use></svg>
+    </button>
+    `;
+    list.append(node);
+}
+
+
+
+
 // Initial array where the user puts task from text input
 
 let todoItems =[];
@@ -13,7 +38,7 @@ function addTodo(text) {
     };
 
     todoItems.push(todo);
-    console.log(todoItems);
+    renderTodo(todo);
 }
 
 // Element coming from the form in my HTML
