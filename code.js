@@ -2,6 +2,13 @@
 function renderTodo(todo){
     const list= document.querySelector('.js-todo-list');
     const item = document.querySelector(`[data-key='${todo.id}']`)
+
+    if (todo.deleted) {
+        item.remove();
+        return
+    }
+
+
     // creating a if else statement making sure todocheck is true
     const isChecked = todo.checked ? 'done' : '';
     //this is creating a li list
@@ -71,11 +78,27 @@ form.addEventListener('submit', event => {
     }
 });
 
+
+function deleteTodo(key){
+    const index= todoItems.findIndex(item => item.id === Number(key));
+    const todo ={
+        deleted:true,
+        ...todoItems[index] 
+    };
+    todoItems = todoItems.filter(item => item.id !== Number(key));
+    renderTodo(todo);
+}
+
 const list = document.querySelector('.js-todo-list');
     list.addEventListener('click', event => {
         if (event.target.classList.contains('js-tick')){
             const itemKey = event.target.parentElement.dataset.key;
             toggleDone(itemKey);
+        }
+
+        if(event.target.classList.contains('js-delete-todo')){
+            const itemKey = event.target.parentElement.dataset.key;
+            deleteTodo(itemKey);
         }
     });
 
