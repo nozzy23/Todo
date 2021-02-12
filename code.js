@@ -1,6 +1,7 @@
 
 function renderTodo(todo){
     const list= document.querySelector('.js-todo-list');
+    const item = document.querySelector(`[data-key='${todo.id}']`)
     // creating a if else statement making sure todocheck is true
     const isChecked = todo.checked ? 'done' : '';
     //this is creating a li list
@@ -17,6 +18,12 @@ function renderTodo(todo){
     <svg><use href="#delete-icon"></use></svg>
     </button>
     `;
+
+    if(item){
+        list.replaceChild(node, item)
+    } else {
+        list.append(node);
+    }
     list.append(node);
 }
 
@@ -41,6 +48,12 @@ function addTodo(text) {
     renderTodo(todo);
 }
 
+function toggleDone(key) {
+    const index = todoItems.findIndex(item => item.id === Number(key));
+    todoItems[index].checked = !todoItems[index].checked;
+    renderTodo(todoItems[index]);
+}
+
 // Element coming from the form in my HTML
 const form = document.querySelector('.js-form');
 //added the listener basically paying attention to when it gets clicked
@@ -56,7 +69,15 @@ form.addEventListener('submit', event => {
         input.value='';
         input.focus();
     }
-})
+});
+
+const list = document.querySelector('.js-todo-list');
+    list.addEventListener('click', event => {
+        if (event.target.classList.contains('js-tick')){
+            const itemKey = event.target.parentElement.dataset.key;
+            toggleDone(itemKey);
+        }
+    });
 
 
 console.log("hello World")
