@@ -14,13 +14,18 @@
       <div class="container">
         <h1 class="app-title">todos</h1>
         <ul class="todo-list js-todo-list"></ul>
+
+        <div class="empty-state">
+          <svg class="checklist-icon"><use href="#checklist-icon"></use></svg>
+          <h2 class="empty-state__title">You're going to forget, write it down</h2>
+          <p class="empty-state__description">Lets get started</p>
+        </div>
     <!--Targetting this class to listen to any event-->
         <form class="js-form">
           <input autofocus type="text" aria-label="Enter a new todo item" placeholder="E.g. Build a web app" class="js-todo-input">
         </form>
       </div>
     </main>
-    Ω
     <svg>
       <defs>
         <symbol id="checklist-icon" viewBox="-52 0 512 512">
